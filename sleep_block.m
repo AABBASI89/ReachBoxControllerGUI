@@ -47,7 +47,6 @@ f_temp=clock;
 f_time=['(',num2str(f_temp(4)),'h',num2str(f_temp(5)),'m)'];
 
 frame_times = [];
-time = [];
 while (~stopState)
     f_name=[subJ_name,'-(',f_date,')-',f_time,'-SPONT'];
     statusUpdate(f_name);
@@ -55,6 +54,7 @@ while (~stopState)
     get_long_vid_autobox(min_sleep,frame_rate,frame_rate);
     stopState = 1;
 end
+
 [~, time] = getdata(vid_back,vid_back.FramesAvailable);
 flushdata(vid_back);
 frame_times = [frame_times time'];

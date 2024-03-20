@@ -27,6 +27,7 @@ global sDOOR_open_position;
 global sDOOR_close_position;
 global vid_back;
 global vid_lat;
+global currentFile;
 
 if fh.cbk2.Value == 1
     answer = questdlg('Are sure you are using Reach Box 2?','Yes','No');

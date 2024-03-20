@@ -1,10 +1,10 @@
 function doorClose_callback(hObject,eventdata)
 % SHAKTHI VISAGAN
-
+% AAMIR ABBASI 2024
 global sDOOR;
 global sDOOR_open_position;
 global sDOOR_close_position;
-    
+
 if readPosition(sDOOR) ~= sDOOR_close_position
     for steps = 1:100
         writePosition(sDOOR,...
