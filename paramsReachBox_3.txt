@@ -1,0 +1,6 @@
+0.30 0.30		Rest_position
+0.20 0.14   	Pellet_position
+0.60 0.37		Reach_position_R
+0.55 0.37		Reach_position_L
+0.45     		sDoor_open_position
+0.35     		sDoor_close_position

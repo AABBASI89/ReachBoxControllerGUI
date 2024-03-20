@@ -28,14 +28,31 @@ global sDOOR_open_position;
 global sDOOR_close_position;
 global vid_back;
 global vid_lat;
+global currentFile;
 
 if fh.cbk3.Value == 1
     answer = questdlg('Are sure you are using Reach Box 3?','Yes','No');
     if strcmp(answer,'Yes') == 1
         disp('INITIALIZATION OF REACH BOX 3');
         
-        %% START INITIALIZATION
+        %% READ PARAMS FILE
+        params_f = [fileparts(currentFile),'\paramsReachBox_3.txt'];
+        A = readcell(params_f);
         
+        % Assign motor positions
+        rest_position = [A{1,1} A{1,1}];
+        pellet_position = [A{2,1} A{2,1}];
+        
+        % Each of the relevant positions are stored in an arry because the first
+        % item in the array is the position for the base motor (sBASE) and the
+        % second position is for the arm (sARM).
+        reach_position_R = [A{3,1} A{3,1}];
+        reach_position_L = [A{4,1} A{4,1}];
+        
+        sDOOR_open_position = A{5,1};
+        sDOOR_close_position = A{6,1};
+        
+        %% START INITIALIZATION        
         % Getting Arduino (ARD_BOARD)
         try % try to get the Arduino board automatically\
             ARD_BOARD = arduino;
@@ -69,9 +86,6 @@ if fh.cbk3.Value == 1
         disp('SERVO FOR BASE MOTOR AND ARM INITIALIZED')
         
         %% Getting Rest and Pellet positions
-        % instantiating rest and pellet positions
-        rest_position = [0.3 0.3]; % values for Reach Box 3
-        pellet_position = [0.2 0.14]; % values for Reach Box 3
         % Rest routine+
         disp('REST POSITION')
         writePosition(sBASE,rest_position(1));
@@ -84,13 +98,7 @@ if fh.cbk3.Value == 1
         writePosition(sARM,pellet_position(2));
         disp('PELLET AND REST POSITIONS FOR BASE AND MOTOR AND ARM INITIALIZED')
         
-        %% Getting Reach positions for right and left-handed rats
-        % Each of the relevant positions are stored in an arry because the first
-        % item in the array is the position for the base motor (sBASE) and the
-        % second position is for the arm (sARM).
-        reach_position_R = [0.60 0.37];  % Default Reach Box 3
-        reach_position_L = [0.55 0.37]; % Default Reach Box 3
-        
+        %% Getting Reach positions for right and left-handed rats        
         % Reach left routine
         disp('REACH LEFT POSITION')
         writePosition(sBASE,reach_position_L(1));
@@ -109,8 +117,6 @@ if fh.cbk3.Value == 1
         % DOOR SERVO
         sDOOR = servo(ARD_BOARD, 'D10', 'MinPulseDuration', 700*10^-6,...
             'MaxPulseDuration', 2300*10^-6);
-        sDOOR_open_position = 0.45; % Reach Box 3
-        sDOOR_close_position = 0.35; % Reach Box 3
         
         disp('DOOR CLOSING')
         writePosition(sDOOR,sDOOR_close_position);

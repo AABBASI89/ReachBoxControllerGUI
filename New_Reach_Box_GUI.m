@@ -2,7 +2,7 @@
 % Author: Aamir Abbasi
 % Box: This script can be used for any reach box. Single script to avoid
 % confusion. I have parameterized all the differences across reach boxs in a
-% params file. This file will be loaded at startup!
+% params file. This file will be loaded at initialization of respective reach boxes!
 
 %% Startup setup!
 clear all; close all; clc;
@@ -21,6 +21,11 @@ global fh;
 global fig_pos;
 global saveVidsID;
 global currentFile;
+global hand;
+global stopState;
+
+stopState = 0;
+hand = 1;
 
 % add current reach scipt folder to matlab path
 currentFile = matlab.desktop.editor.getActiveFilename;

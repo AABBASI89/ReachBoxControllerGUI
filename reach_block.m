@@ -10,6 +10,8 @@ global pellet_position;
 global rest_position;
 global reach_position_L;
 global reach_position_R;
+global sDOOR_open_position;
+global sDOOR_close_position;
 global hand;
 global currentFile;
     
@@ -45,7 +47,6 @@ trial = 1;
 outcomes = [];
 pelletdrops= [];
 Iti_time = tic;
-% doorClose_callback;
 time_out = 0;
 
 % Set save path
@@ -212,6 +213,11 @@ stop(vid_lat);
     
 end
     
-save([path_f '\outcomes_' video_name], 'outcomes','pelletdrops'); 
+save([path_f '\outcomes_' video_name], 'outcomes','pelletdrops');
+if hand == 1
+    save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_R','sDOOR_open_position','sDOOR_close_position');
+elseif hand == 2
+    save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_L','sDOOR_open_position','sDOOR_close_position');
+end
 
 end

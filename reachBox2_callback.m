@@ -33,6 +33,23 @@ if fh.cbk2.Value == 1
     if strcmp(answer,'Yes') == 1
         disp('INITIALIZATION OF REACH BOX 2');
         
+        %% READ PARAMS FILE
+        params_f = [fileparts(currentFile),'\paramsReachBox_2.txt'];
+        A = readcell(params_f);
+        
+        % Assign motor positions
+        rest_position = [A{1,1} A{1,1}]; 
+        pellet_position = [A{2,1} A{2,1}];
+        
+        % Each of the relevant positions are stored in an arry because the first
+        % item in the array is the position for the base motor (sBASE) and the
+        % second position is for the arm (sARM).
+        reach_position_R = [A{3,1} A{3,1}];
+        reach_position_L = [A{4,1} A{4,1}];
+        
+        sDOOR_open_position = A{5,1};
+        sDOOR_close_position = A{6,1};
+        
         %% START INITIALIZATION
         
         % Getting Arduino (ARD_BOARD)
@@ -68,9 +85,6 @@ if fh.cbk2.Value == 1
         disp('SERVO FOR BASE MOTOR AND ARM INITIALIZED')
         
         %% Getting Rest and Pellet positions
-        % instantiating rest and pellet positions
-        rest_position = [0.55 0.2]; % values for Reach Box 2
-        pellet_position = [0.55 0]; % values for Reach Box 2
         % Rest routine+
         disp('REST POSITION')
         writePosition(sBASE,rest_position(1));
@@ -84,12 +98,6 @@ if fh.cbk2.Value == 1
         disp('PELLET AND REST POSITIONS FOR BASE AND MOTOR AND ARM INITIALIZED')
         
         %% Getting Reach positions for right and left-handed rats
-        % Each of the relevant positions are stored in an arry because the first
-        % item in the array is the position for the base motor (sBASE) and the
-        % second position is for the arm (sARM).
-        reach_position_R = [0.66 0.44];  % Default Reach Box 2
-        reach_position_L = [0.62 0.44]; % Default Reach Box 2
-        
         % Reach left routine
         disp('REACH LEFT POSITION')
         writePosition(sBASE,reach_position_L(1));
@@ -108,8 +116,6 @@ if fh.cbk2.Value == 1
         % DOOR SERVO
         sDOOR = servo(ARD_BOARD, 'D10', 'MinPulseDuration', 700*10^-6,...
             'MaxPulseDuration', 2300*10^-6);
-        sDOOR_open_position = 0.9; % Reach Box 2
-        sDOOR_close_position = 0.78; % Reach Box 2
         
         disp('DOOR CLOSING')
         writePosition(sDOOR,sDOOR_close_position);
