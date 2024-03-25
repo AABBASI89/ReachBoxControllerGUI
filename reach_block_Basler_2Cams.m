@@ -97,10 +97,10 @@ while(~stopState) && (trial < number_of_trials+1)
             end
             if readVoltage(ARD_BOARD,'A0') < (nopellet-(0.2*nopellet))
                 pellet = 1;
-                for step = 1:30
+                for step = 1:50
                     
-                    writePosition(sBASE,rest_position(1) + step*((reach_position(1)-rest_position(1))/30));
-                    writePosition(sARM,rest_position(2) + step*((reach_position(2)-rest_position(2))/30))
+                    writePosition(sBASE,rest_position(1) + step*((reach_position(1)-rest_position(1))/50));
+                    writePosition(sARM,rest_position(2) + step*((reach_position(2)-rest_position(2))/50));
                     % left handed
                 end
                 

@@ -49,6 +49,6 @@ elseif fh.cbk1.Value == 1
     msgbox('This step is not required for Box 1');
     
 elseif fh.cbk2.Value == 0 || fh.cbk3.Value == 0
-    msgbox('First initialize either reach box 1 or 2 by checking on the appropiate box');
+    msgbox('First initialize either reach box 2 or 3 by checking on the appropiate box');
 end
 end

@@ -59,10 +59,16 @@ if fh.cbk3.Value == 1
         catch % try to get the Arduino board explicitly
             % getting list of COM ports
             serial_port_list = seriallist;
-            % getting the COM port
-            COM_port_string = serial_port_list(2);
-            % creating and assigning arduino object
-            ARD_BOARD = arduino(COM_port_string,'Uno');
+            if ~isempty (serial_port_list)
+                % getting the COM port
+                COM_port_string = serial_port_list(2);
+                % creating and assigning arduino object
+                ARD_BOARD = arduino(COM_port_string,'Uno');
+            else
+                err_dlg = errordlg('Make sure that Arduino is connected properly to the computer. Check connections or Turn no USB Hub before hitting OK');
+                waitfor(err_dlg);
+                pause(2.5); %seconds
+            end
         end
         % don't need the list of serial ports
         clear serial_port_list
