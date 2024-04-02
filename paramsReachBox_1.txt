@@ -2,5 +2,5 @@
 0.53 0.15		Pellet_position
 0.68 0.57		Reach_position_R
 0.64 0.55		Reach_position_L
-0.20     		sDoor_open_position
-0.36     		sDoor_close_position
+0.20    		sDoor_open_position
+0.36    		sDoor_close_position

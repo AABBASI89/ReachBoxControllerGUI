@@ -37,20 +37,22 @@ if fh.cbk1.Value == 1
         
         %% READ PARAMS FILE
         params_f = [fileparts(currentFile),'\paramsReachBox_1.txt'];
-        A = readcell(params_f);
+        fid = fopen(params_f);
+        A = textscan(fid,'%s %s %s');
+        fclose(fid);
         
         % Assign motor positions
-        rest_position = [A{1,1} A{1,1}];
-        pellet_position = [A{2,1} A{2,1}]; %
+        rest_position = [A{1}{1} A{2}{1}]; 
+        pellet_position = [A{1}{2} A{2}{2}];
         
         % Each of the relevant positions are stored in an arry because the first
         % item in the array is the position for the base motor (sBASE) and the
         % second position is for the arm (sARM).
-        reach_position_R = [A{3,1} A{3,1}];  
-        reach_position_L = [A{4,1} A{4,1}]; 
+        reach_position_R = [A{1}{3} A{2}{3}];
+        reach_position_L = [A{1}{4} A{2}{4}];
         
-        sDOOR_open_position = A{5,1};
-        sDOOR_close_position = A{6,1};      
+        sDOOR_open_position = A{1}{5};
+        sDOOR_close_position = A{1}{6};    
         
         %% START INITIALIZATION
         

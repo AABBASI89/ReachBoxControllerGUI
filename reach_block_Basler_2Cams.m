@@ -11,8 +11,6 @@ global pellet_position
 global rest_position
 global reach_position_L
 global reach_position_R
-global sDOOR_open_position;
-global sDOOR_close_position;
 global hand
 global reach_vid
 global reach_vid2
