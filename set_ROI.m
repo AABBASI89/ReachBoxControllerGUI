@@ -26,9 +26,8 @@ if fh.cbk2.Value == 1 || fh.cbk3.Value == 1
     trigger(vid_lat);
     pause(0.5);
     stop(vid_lat);
-    set(vid_lat,'loggingmode','disk');
     f_avail=get(vid_lat,'FramesAvailable');
-    [im_lat t_lat] = getdata(vid_lat,f_avail);
+    im_lat = getdata(vid_lat,f_avail);
     base_image=im_lat(:,:,:,end);
     
     f1=figure;
