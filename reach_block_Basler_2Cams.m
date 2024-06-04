@@ -116,7 +116,7 @@ while(~stopState) && (trial < number_of_trials+1)
     while (toc(Iti_time)< Iti)
         m=floor(single(toc(Iti_time))/60);
         s=round(rem(single(toc(Iti_time)),60));
-        set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
+%         set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
     end
     if trial ~= 1
         stop(vid_lat);
@@ -155,7 +155,7 @@ while(~stopState) && (trial < number_of_trials+1)
         
         m=floor(single(toc(trial_time))/60);
         s=round(rem(single(toc(trial_time)),60));
-        set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
+%         set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
         %disp("TIC MEASURE")
         %disp(toc(trial_time))
         %disp(door_open_time)
@@ -232,10 +232,10 @@ stop(vid_lat);
 stop(vid_lat2);
 save([path_f '\outcomes_' video_name], 'outcomes','pelletdrops');
 
-if hand == 1
-    save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_R','sDOOR_open_position','sDOOR_close_position');
-elseif hand == 2
-    save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_L','sDOOR_open_position','sDOOR_close_position');
-end
+% if hand == 1
+%     save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_R','sDOOR_open_position','sDOOR_close_position');
+% elseif hand == 2
+%     save([path_f '\PARAMS_' video_name], 'rest_position','pellet_position','reach_position_L','sDOOR_open_position','sDOOR_close_position');
+% end
 
 end

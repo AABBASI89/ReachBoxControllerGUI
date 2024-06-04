@@ -42,17 +42,17 @@ if fh.cbk1.Value == 1
         fclose(fid);
         
         % Assign motor positions
-        rest_position = [A{1}{1} A{2}{1}]; 
-        pellet_position = [A{1}{2} A{2}{2}];
+        rest_position = [str2double(A{1}{1}) str2double(A{2}{1})]; 
+        pellet_position = [str2double(A{1}{2}) str2double(A{2}{2})];
         
         % Each of the relevant positions are stored in an arry because the first
         % item in the array is the position for the base motor (sBASE) and the
         % second position is for the arm (sARM).
-        reach_position_R = [A{1}{3} A{2}{3}];
-        reach_position_L = [A{1}{4} A{2}{4}];
+        reach_position_R = [str2double(A{1}{3}) str2double(A{2}{3})];
+        reach_position_L = [str2double(A{1}{4}) str2double(A{2}{4})];
         
-        sDOOR_open_position = A{1}{5};
-        sDOOR_close_position = A{1}{6};    
+        sDOOR_open_position = str2double(A{1}{5});
+        sDOOR_close_position = str2double(A{1}{6});    
         
         %% START INITIALIZATION
         

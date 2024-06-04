@@ -1,12 +1,5 @@
 function TDTsig_n (num)
 global ARD_BOARD
-global fh
-global pelLoc
-global R_mot_pellet
-global L_mot_pellet
-global Door_open
-global Door_close
-global stopState
 
 if ~exist('num')
     num = 1;

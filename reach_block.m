@@ -118,7 +118,7 @@ while(~stopState) && (trial < number_of_trials+1)
     while (toc(Iti_time)<Iti)
         m=floor(single(toc(Iti_time))/60);
         s=round(rem(single(toc(Iti_time)),60));
-        set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
+%         set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
     end
     
     temp_trial=num2str(trial);
@@ -140,7 +140,7 @@ while (readVoltage(ARD_BOARD, 'A1') < (nopellet-(0.27*nopellet)) && time_out == 
 
     m=floor(single(toc(trial_time))/60);
     s=round(rem(single(toc(trial_time)),60));
-    set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
+%     set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
     disp("TIC MEASURE")
     disp(toc(trial_time))
     disp(door_open_time)

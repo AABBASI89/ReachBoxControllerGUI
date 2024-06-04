@@ -25,7 +25,7 @@ if get(fh.start,'Value')
     end
     
     if get(fh.status2,'value') == 6
-        stim_video;
+        reach_block_Basler_2Cams_Stim;
     end
     
     if get(fh.status2,'value') == 7

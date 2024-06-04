@@ -111,7 +111,7 @@ prog_options{2}='Reach Block';
 prog_options{3}='Reach Block w/Back';
 prog_options{4}='Reach Block no save';
 prog_options{5}='Reach Block no save w/Back';
-prog_options{6}='Stim with video';
+prog_options{6}='Reach Block Basler 2 Cams w/Stim';
 prog_options{7}='Reach Block Basler 2 Cams';
 
 fh.status2 = uicontrol(fh.fig,...
