@@ -11,21 +11,27 @@ if fh.cbk1.Value == 1 || fh.cbk2.Value == 1 || fh.cbk3.Value == 1
     %% READ PARAMS FILE
     if fh.cbk1.Value == 1
         params_f = [fileparts(currentFile),'\paramsReachBox_1.txt'];
-        A = readcell(params_f);
+        fid = fopen(params_f);
+        A = textscan(fid,'%s %s %s');
+        fclose(fid);
     elseif fh.cbk2.Value == 1
         params_f = [fileparts(currentFile),'\paramsReachBox_2.txt'];
-        A = readcell(params_f);
+        fid = fopen(params_f);
+        A = textscan(fid,'%s %s %s');
+        fclose(fid);
     elseif fh.cbk3.Value == 1
         params_f = [fileparts(currentFile),'\paramsReachBox_3.txt'];
-        A = readcell(params_f);
+        fid = fopen(params_f);
+        A = textscan(fid,'%s %s %s');
+        fclose(fid);
     end
     
     %% READ CURRENT POSITION AND DISPLAY ON A NEW GUI WINDOW
     % Each of the relevant positions are stored in an arry because the first
     % item in the array is the position for the base motor (sBASE) and the
     % second position is for the arm (sARM).
-    reach_position_R = [A{3,1} A{3,2}];
-    reach_position_L = [A{4,1} A{4,2}];        
+    reach_position_R = [str2double(A{1}{3}) str2double(A{2}{3})];
+    reach_position_L = [str2double(A{1}{4}) str2double(A{2}{4})];
     
     %% LAUNCH A NEW UIFIGURE FOR ADJUSTING PELLET MOTOR POSITIONS IN REAL-TIME
     % FIGURE WINDOW
