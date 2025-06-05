@@ -3,6 +3,10 @@ function sleep_block()
 global fh;
 global stopState;
 global vid_back;
+global sDOOR;
+global sDOOR_close_position;
+
+writePosition(sDOOR,sDOOR_close_position);
 
 if fh.cbk1.Value == 1
     f_path='F:\Sleep_Videos\';
@@ -21,7 +25,7 @@ set(vid_back,'FramesPerTrigger',inf);
 set(vid_back,'FrameGrabInterval',1);
 
 start(vid_back);
-pause(1);
+pause(0.1);
 trigger(vid_back);
 test = tic;
 while toc(test) < 5

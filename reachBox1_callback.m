@@ -23,7 +23,8 @@ global pellet_position;
 global reach_position_R;
 global reach_position_L;
 global sDOOR;
-global sDOOR_open_position;
+global sDOOR_open_position_L;
+global sDOOR_open_position_R;
 global sDOOR_close_position;
 global vid_back;
 global vid_lat;
@@ -51,8 +52,9 @@ if fh.cbk1.Value == 1
         reach_position_R = [str2double(A{1}{3}) str2double(A{2}{3})];
         reach_position_L = [str2double(A{1}{4}) str2double(A{2}{4})];
         
-        sDOOR_open_position = str2double(A{1}{5});
-        sDOOR_close_position = str2double(A{1}{6});    
+        sDOOR_open_position_L = str2double(A{1}{5});
+        sDOOR_open_position_R = str2double(A{1}{6});
+        sDOOR_close_position = str2double(A{1}{7});    
         
         %% START INITIALIZATION
         
@@ -121,7 +123,7 @@ if fh.cbk1.Value == 1
         pause(2.5) % [seconds]
         
         % Reach right routine
-        disp('REACH POSITION')
+        disp('REACH RIGHT POSITION')
         writePosition(sBASE,reach_position_R(1));
         writePosition(sARM,reach_position_R(2));
         disp('HANDED REACH POSITIONS FOR BASE AND MOTOR AND ARM INITIALIZED')
@@ -138,64 +140,12 @@ if fh.cbk1.Value == 1
         pause(2.5) % [seconds]
         
         disp('DOOR OPENING')
-        writePosition(sDOOR,sDOOR_open_position);
-        
-        %% Finishing Arduino setup and Testing % UNECESSARY
-        
-%         % Pause for 2.5 seconds after resting position
-%         pause(2.5) % [seconds]
-%         
-%         % Rest routine
-%         disp('REST POSITION')
-%         writePosition(sBASE,rest_position(1));
-%         writePosition(sARM,rest_position(2));
-%         writePosition(sDOOR,sDOOR_close_position);
-%         
-%         % Pause for 2.5 seconds after resting position
-%         pause(2.5) % [seconds]
-%         
-%         % Pellet routine
-%         disp('PELLET POSITION')
-%         writePosition(sBASE,pellet_position(1));
-%         writePosition(sARM,pellet_position(2));
-%         
-%         % Pause for 2.5 seconds after pellet position
-%         pause(2.5) % [seconds]
-%         
-%         % Reach left routine
-%         disp('REACH LEFT POSITION')
-%         writePosition(sDOOR,sDOOR_open_position);
-%         writePosition(sBASE,reach_position_L(1));
-%         writePosition(sARM,reach_position_L(2));
-%         
-%         % Pause for 2.5 seconds after reach left position
-%         pause(2.5) % [seconds]
-%         
-%         % Pellet routine
-%         disp('PELLET POSITION')
-%         writePosition(sDOOR,sDOOR_close_position);
-%         writePosition(sBASE,pellet_position(1));
-%         writePosition(sARM,pellet_position(2));
-%         
-%         % Pause for 2.5 seconds after pellet position
-%         pause(2.5) % [seconds]
-%         
-%         % Reach right routine
-%         disp('REACH POSITION')
-%         writePosition(sDOOR,sDOOR_open_position);
-%         writePosition(sBASE,reach_position_R(1));
-%         writePosition(sARM,reach_position_R(2));
-%         
-%         % Pause for 2.5 seconds after pellet position
-%         pause(2.5) % [seconds]
-%         
-%         % Rest routine
-%         disp('RETURNING TO REST POSITION')
-%         writePosition(sBASE,rest_position(1));
-%         writePosition(sARM,rest_position(2));
-%         writePosition(sDOOR,sDOOR_close_position);
-        
-        disp('ARDUINOS AND SERVOS INITIALIZED');
+        if hand == 2
+            writePosition(sDOOR,sDOOR_open_position_L);
+        end
+        if hand == 1
+            writePosition(sDOOR,sDOOR_open_position_R);
+        end        
         
         %% Getting Monitor Camera
         %MONITOR CAMERA
@@ -209,19 +159,23 @@ if fh.cbk1.Value == 1
         
         %% Getting Reach Camera
         % REACH CAMERA 1
-        vid_lat = videoinput('gentl', 1);
-        vid_lat.FramesPerTrigger = Inf;
-        % % triggerconfig(vid_lat, 'hardware');
-        % % src = getselectedsource(vid_lat);
-        % % src.AcquisitionFrameRate = 90; %76;
-        % % src.AcquisitionFrameRateEnable = 'True';
-        % % src.LineSelector = 'Line1';
-        % % src.LineInverter = 'False';
-        % % src.TriggerMode = 'On';
+        if hand == 2
+            vid_lat = videoinput('gentl', 1);
+            vid_lat.FramesPerTrigger = Inf;
+            % % triggerconfig(vid_lat, 'hardware');
+            % % src = getselectedsource(vid_lat);
+            % % src.AcquisitionFrameRate = 90; %76;
+            % % src.AcquisitionFrameRateEnable = 'True';
+            % % src.LineSelector = 'Line1';
+            % % src.LineInverter = 'False';
+            % % src.TriggerMode = 'On';
+        end
         
         % REACH CAMERA 2
-        vid_lat2 = videoinput('gentl', 2);
-        vid_lat2.FramesPerTrigger = Inf;
+        if hand == 1
+            vid_lat2 = videoinput('gentl', 2);
+            vid_lat2.FramesPerTrigger = Inf;
+        end
         
         %% Finishing Camera setup and Testing
         disp('CAMERAS INITIALIZED');

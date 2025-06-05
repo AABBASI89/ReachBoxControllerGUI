@@ -57,17 +57,16 @@ end
 addpath(genpath(path_f))
 
 % Set camera to hardware trigger mode
-if hand == 2 % LEFT HAND VIEW
+if hand == 2
     triggerconfig(vid_lat, 'hardware');
     src = getselectedsource(vid_lat);
     src.TriggerMode = 'On';
 end
 
-if hand == 1 % RIGHT HAND VIEW
-    triggerconfig(vid_lat2, 'hardware');
-    src2 = getselectedsource(vid_lat2);
-    src2.TriggerMode = 'On';
-end
+if hand == 1
+triggerconfig(vid_lat2, 'hardware');
+src2 = getselectedsource(vid_lat2);
+src2.TriggerMode = 'On';
 
 while(~stopState) && (trial < number_of_trials+1)
     
@@ -120,33 +119,28 @@ while(~stopState) && (trial < number_of_trials+1)
     while (toc(Iti_time)< Iti)
         m=floor(single(toc(Iti_time))/60);
         s=round(rem(single(toc(Iti_time)),60));
-        disp([m,' ',s]);
+%         set(fh.tick,'String',['T  ',num2str(m),'m ',num2str(s),'s']);
     end
     if trial ~= 1
-        if hand == 2
-            stop(vid_lat);
-        end
-        if hand == 1
-            stop(vid_lat2);
-        end
-    end
-        
-    % Start the cameras
-    if hand == 2
-        video_name = [subJ_name,'-(',f_date,')-',f_time,'-Cam1-',num2str(trial)];
-        reach_vid = VideoWriter(sprintf('%s\\%s',path_f,video_name),'Motion JPEG AVI');
-        reach_vid.FrameRate=301;
-        set(vid_lat,'DiskLogger',reach_vid, 'LoggingMode', 'disk');
-        start(vid_lat);
+        stop(vid_lat);
+        stop(vid_lat2);
     end
     
-    if hand == 1
-        video_name2 = [subJ_name,'-(',f_date,')-',f_time,'-Cam2-',num2str(trial)];
-        reach_vid2 = VideoWriter(sprintf('%s\\%s',path_f,video_name2),'Motion JPEG AVI');
-        reach_vid2.FrameRate=301;
-        set(vid_lat2,'DiskLogger',reach_vid2, 'LoggingMode', 'disk');
-        start(vid_lat2);
-    end           
+    temp_trial=num2str(trial);
+    
+    video_name = [subJ_name,'-(',f_date,')-',f_time,'-Cam1-',num2str(trial)];
+    reach_vid = VideoWriter(sprintf('%s\\%s',path_f,video_name),'Motion JPEG AVI');
+    reach_vid.FrameRate=301;
+    set(vid_lat,'DiskLogger',reach_vid, 'LoggingMode', 'disk');
+    
+    video_name2 = [subJ_name,'-(',f_date,')-',f_time,'-Cam2-',num2str(trial)];
+    reach_vid2 = VideoWriter(sprintf('%s\\%s',path_f,video_name2),'Motion JPEG AVI');
+    reach_vid2.FrameRate=301;
+    set(vid_lat2,'DiskLogger',reach_vid2, 'LoggingMode', 'disk');
+    
+    % Start the cameras
+    start(vid_lat);
+    start(vid_lat2);
     
     TDTsig_n(2);
     TDTsig2_n(1);  %START OF A TRIAL/DOOR OPEN
@@ -206,12 +200,8 @@ while(~stopState) && (trial < number_of_trials+1)
     
 end
 
-if hand == 2
-    stop(vid_lat);
-end
-if hand == 1
-    stop(vid_lat2);
-end
+stop(vid_lat);
+stop(vid_lat2);
 save([path_f '\outcomes_' video_name], 'outcomes','pelletdrops');
 
 % if hand == 1
